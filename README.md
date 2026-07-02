@@ -20,7 +20,7 @@ Data base
 
 Установка:
 
-Установка зависимостей из requirements.txt.
+
 
 pip install requests
 
@@ -117,6 +117,4 @@ python main.py
 &#x20;  Пример быстрого борта: TVF13HR  (203.2 м/с)
 
 4\. Самолетов с 'ACA' в позывном: 3 шт.
-
-
 
