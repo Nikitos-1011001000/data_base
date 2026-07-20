@@ -22,11 +22,7 @@ def main():
     db.create_tables()
     print("✅ Таблицы проверены/созданы")
 
-    # ---------------------------------------------------------
-    # 3. ЖЁСТКИЙ ХАРДКОД КООРДИНАТ (Гарантированно работает!)
-    # Формат: {"Название": [min_lon, min_lat, max_lon, max_lat]}
-    # Мы пропускаем интернет и Nominatim, чтобы код просто работал.
-    # ---------------------------------------------------------
+    
     countries_list = ["Germany", "Poland", "Czech Republic", "Austria"]
 
     areas = {
@@ -58,7 +54,6 @@ def main():
             "max_lon": max_lon       # <-- Должно быть max_lon
         })
 
-    # Вызываем ТВОЙ метод ОДИН РАЗ со всем списком
     country_ids_map = db.insert_countries(countries_to_insert)
 
     if country_ids_map:
@@ -78,7 +73,6 @@ def main():
     for country_name, coords in areas.items():
         min_lon, min_lat, max_lon, max_lat = coords
 
-        # ИСПРАВЛЕНИЕ 2: Получаем ID страны из country_map, который мы создали ранее
         if country_name not in country_map:
             print(f"⚠️ Пропускаем {country_name}: нет ID в базе (возможно, не сохранена)")
             continue
@@ -122,7 +116,6 @@ def main():
                     count_skipped += 1
                     continue
 
-        # 👇 ЭТА СТРОКА ТЕПЕРЬ ПОКАЖЕТ ВСЁ
                 if not isinstance(lat, (int, float)) or not isinstance(lon, (int, float)):
                     # print(f"   [WARN] Плохие координаты у самолёта {i}: lat={lat}, lon={lon}")
                     count_skipped += 1
@@ -133,7 +126,6 @@ def main():
                     count_skipped += 1
                     continue
 
-                    # ПРОВЕРКА ЗОНЫ
                     # min_lat <= lat <= max_lat И min_lon <= lon <= max_lon
                 if (min_lat <= lat <= max_lat and
                         min_lon <= lon <= max_lon):
@@ -176,7 +168,6 @@ def main():
                     all_planes_to_insert.append(row)
                     count_added += 1
                 else:
-                    # Самолёт есть, координаты есть, но он летит мимо этой страны (это нормально)
                     pass
 
             print(f"   ✅ Зона '{country_name}': всего записей {len(states)}, пропущено неполных {count_skipped}, сохранено {count_added}")
