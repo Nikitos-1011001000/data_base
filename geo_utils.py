@@ -11,7 +11,7 @@ def get_country_coordinates(country_names):
             "q": name,
             "format": "json",
             "limit": 1,
-            "countrycodes": ""  # можно уточнить, но для стран часто не нужно
+            "countrycodes": ""  
         }
         resp = requests.get(base_url, params=params, headers=headers)
         resp.raise_for_status()
